@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from typing import List
 from app.schemas import Product, ProductBase # Nossos schemas
 
@@ -6,6 +7,20 @@ app = FastAPI(
     title="Skull Burgers API",
     description="API do cardapio do Skull Burgers",
     version="1.0.0"
+)
+
+# Config do cors
+origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Banco de bosta, reseta ao reiniciar o lixo que chamo de servidor
